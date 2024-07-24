@@ -16,7 +16,8 @@ export default class App extends Component{
     ]
 
     state = {
-        todoData: this.todoData
+        todoData: this.todoData,
+        value: ""
     }
 
     btnStyle = {
@@ -41,6 +42,25 @@ export default class App extends Component{
         this.setState({todoData: newTodoData})
     }
 
+    handleChange = (e) => {
+        this.setState({value: e.target.value})
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault()
+
+        //새로운 할일 데이터
+        let newTodo = {
+            id: Date.now(),
+            title: this.state.value,
+            completed: false
+        }
+
+        //원래 있던 할 일에 새로운 할 일 더해주기
+        //입력란에 있던 글씨 초기화
+        this.setState({todoData: [...this.state.todoData, newTodo], value: ""})
+    }
+
   render() {
     return (
         <div className="container">
@@ -55,6 +75,22 @@ export default class App extends Component{
                         <button style={this.btnStyle} onClick={() => this.handleClick(data.id)}>x</button>
                     </div>
                 ))}
+                <form style={{display: "flex"}} onSubmit={this.handleSubmit}>
+                    <input
+                        type="text"
+                        name="value"
+                        style={{flex: '10', padding: '5px'}}
+                        placeholder="해야 할 일을 입력하세요."
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                    />
+                    <input
+                        type="submit"
+                        value="입력"
+                        className="btn"
+                        style={{flex: '1'}}
+                    />
+                </form>
             </div>
         </div>
     )
