@@ -2,21 +2,8 @@ import React, {Component} from "react";
 import "./App.css"
 
 export default class App extends Component{
-    todoData = [
-        {
-            id: "1",
-            title: "공부하기",
-            completed: true
-        },
-        {
-            id: "2",
-            title: "청소하기",
-            completed: false
-        }
-    ]
-
     state = {
-        todoData: this.todoData,
+        todoData: [],
         value: ""
     }
 
@@ -29,11 +16,11 @@ export default class App extends Component{
         float: "right"
     }
     
-    getStyle = () => {
+    getStyle = (completed) => {
         return {
             padding: "10px",
             borderBottom: "1px #ccc dotted",
-            textDecoration: "none"
+            textDecoration: completed ? "line-through" : "none"
         }
     }
 
@@ -61,6 +48,16 @@ export default class App extends Component{
         this.setState({todoData: [...this.state.todoData, newTodo], value: ""})
     }
 
+    handleCompleteChange = (id) => {
+        let newTodoData = this.state.todoData.map(data => {
+            if (data.id === id) {
+                data.completed = !data.completed
+            }
+            return data
+        })
+        this.setState({todoData: newTodoData})
+    }
+
   render() {
     return (
         <div className="container">
@@ -69,8 +66,12 @@ export default class App extends Component{
                     <h1>할 일 목록</h1>
                 </div>
                 {this.state.todoData.map((data) => (
-                    <div style={this.getStyle()} key={data.id}>
-                        <input type="checkbox" defaultChecked={false}/>
+                    <div style={this.getStyle(data.completed)} key={data.id}>
+                        <input
+                            type="checkbox"
+                            onChange={() => this.handleCompleteChange(data.id)}
+                            defaultChecked={false}
+                        />
                         {data.title}
                         <button style={this.btnStyle} onClick={() => this.handleClick(data.id)}>x</button>
                     </div>
