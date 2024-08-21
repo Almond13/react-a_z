@@ -1,5 +1,3 @@
-// All the Node.js APIs are available in the preload process.
-// It has the same sandbox as a Chrome extension.
 const { contextBridge, ipcRenderer } = require('electron')
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -14,8 +12,8 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 contextBridge.exposeInMainWorld('versions', {
-    node: () => process.versions.node,
-    chrome: () => process.versions.chrome,
-    electron: () => process.versions.electron,
+    node: process.versions.node,
+    chrome: process.versions.chrome,
+    electron: process.versions.electron,
     ping: () => ipcRenderer.invoke('ping'),
 })
