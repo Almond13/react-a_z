@@ -17,7 +17,6 @@ const path = require('node:path')
 }
 
 app.whenReady().then(async () => {
-    ipcMain.handle('ping', () => 'pong')
     await createWindow()
 
     app.on('activate', async () => {
