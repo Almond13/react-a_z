@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css"
 
 export default function App(){
@@ -13,7 +13,7 @@ export default function App(){
         cursor: "pointer",
         float: "right"
     }
-    
+
     const getStyle = (completed) => {
         return {
             padding: "10px",
@@ -57,6 +57,13 @@ export default function App(){
         setTodoData(newTodoData)
     }
 
+    useEffect(() => {
+        const infoElement = document.getElementById('info');
+        if (infoElement) {
+            infoElement.innerText = `This app is using Chrome (v${window.versions.chrome}), Node.js (v${window.versions.node}), and Electron (v${window.versions.electron})`;
+        }
+    }, []);
+
     return (
         <div className="container">
             <div className="todoBlock">
@@ -90,6 +97,7 @@ export default function App(){
                         style={{flex: '1'}}
                     />
                 </form>
+                <p id="info"></p>
             </div>
         </div>
     )
