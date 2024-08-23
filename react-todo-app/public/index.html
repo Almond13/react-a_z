@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';">
+    <link rel="stylesheet" type="text/css" href="../src/electronStyle.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -40,6 +41,10 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <div>
+      <button id="toggle-dark-mode">System Mode</button>
+      <button id="reset-to-system">Reset Theme</button>
+    </div>
+    <script src="../renderer.js"></script>
   </body>
-  <script src="../renderer.js"></script>
 </html>

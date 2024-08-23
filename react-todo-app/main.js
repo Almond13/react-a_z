@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
 const path = require('node:path')
 
  const createWindow = async () => {
@@ -15,6 +15,19 @@ const path = require('node:path')
     // Open the DevTools.
     mainWindow.webContents.openDevTools()
 }
+
+ipcMain.handle('dark-mode:toggle', () => {
+    if (nativeTheme.shouldUseDarkColors) {
+        nativeTheme.themeSource = 'light'
+    } else {
+        nativeTheme.themeSource = 'dark'
+    }
+    return nativeTheme.shouldUseDarkColors
+})
+
+ipcMain.handle('dark-mode:system', () => {
+    nativeTheme.themeSource = 'system'
+})
 
 app.whenReady().then(async () => {
     await createWindow()
