@@ -33,7 +33,6 @@ export default function App(){
                 <List todoData={todoData} setTodoData={setTodoData}/>
 
                 <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
-
             </div>
         </div>
     )
