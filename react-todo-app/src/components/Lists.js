@@ -1,21 +1,9 @@
 import React from 'react'
 import {DragDropContext, Draggable, Droppable} from "@hello-pangea/dnd";
+import List from "./List";
 
 export default function Lists({ todoData, setTodoData }) {
-    const handleCompleteChange = (id) => {
-        let newTodoData = todoData.map(data => {
-            if (data.id === id) {
-                data.completed = !data.completed
-            }
-            return data
-        })
-        setTodoData(newTodoData)
-    }
 
-    const handleClick = (id) => {
-        let newTodoData = todoData.filter(data => data.id !== id)
-        setTodoData(newTodoData)
-    }
 
     const handleEnd = (result) => {
         console.log(result)
@@ -23,6 +11,7 @@ export default function Lists({ todoData, setTodoData }) {
         // 목적지가 없을 경우 함수 종료
         if(!result.destination) return
 
+        // 불변성을 지키기 위해 생성 (원본 데이터를 변경하는 메서드: splice, push)
         const newTodoData = [...todoData]
 
         const [reorderedItem] = newTodoData.splice(result.source.index, 1)
@@ -44,29 +33,16 @@ export default function Lists({ todoData, setTodoData }) {
                                     index={index}
                                 >
                                     {(provided, snapshot) => (
-                                        <div
+                                        <List
                                             key={data.id}
-                                            {...provided.draggableProps}
-                                            ref={provided.innerRef}
-                                            {...provided.dragHandleProps}
-                                            className={`${
-                                                snapshot.isDragging ? "bg-gray-400" : "bg-gray-100"
-                                            } flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 border rounded`}
-                                        >
-                                            <div className="items-center">
-                                                <input
-                                                    type="checkbox"
-                                                    onChange={() => handleCompleteChange(data.id)}
-                                                    defaultChecked={data.completed}
-                                                />
-                                                <span className={data.completed ? "line-through" : undefined}>{data.title}</span>
-                                            </div>
-                                            <div className="items-center">
-                                                <button className="px-4 py-2 float-right" onClick={() => handleClick(data.id)}>
-                                                    x
-                                                </button>
-                                            </div>
-                                        </div>
+                                            id={data.id}
+                                            title={data.title}
+                                            completed={data.completed}
+                                            todoData={todoData}
+                                            setTodoData={setTodoData}
+                                            provided={provided}
+                                            snapshot={snapshot}
+                                        />
                                     )}
                                 </Draggable>
                             ))}
