@@ -10,7 +10,7 @@ const path = require('node:path')
         }
     })
 
-        await mainWindow.loadFile('./public/index.html');
+        await mainWindow.loadFile('./build/index.html');
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools()

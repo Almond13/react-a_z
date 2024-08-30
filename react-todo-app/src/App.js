@@ -41,9 +41,9 @@ export default function App(){
     return (
         <div className="flex items-center justify-center w-screen h-screen bg-blue-100">
             <div className="w-full p-6 m-4 bg-white rounded shado md:w-3/4 md:max-w-lg w lg:w-3/4 lg:max-w-lg">
-                <div className="flex justify-between mb-3">
+                <div className="flex justify-between mb-3 text-black">
                     <h1>할 일 목록</h1>
-                    <button onClick={handleRemoveClick}>Delete all</button>
+                    <button onClick={handleRemoveClick} className="bg-white">Delete all</button>
                 </div>
                 <Lists todoData={todoData} setTodoData={setTodoData} handleClick={handleClick}/>
 
